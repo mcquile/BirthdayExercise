@@ -1,0 +1,2 @@
+Number of people born before 01/01/2010: 5
+Number of people born after 01/01/2010: 3
