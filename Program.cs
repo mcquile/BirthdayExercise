@@ -31,7 +31,7 @@ namespace BirthdayExercise
 
                     if (IsBirthdayValid(birthDate))
                     {
-                        (before2010, after2010) = IsBirthdayAfter2010(birthDate, before2010, after2010);
+                        IsBirthdayAfter2010(birthDate, ref before2010, ref after2010);
                         Console.WriteLine(GetBirthdayFormat(birthDate));
                         continue;
                     }
@@ -128,13 +128,10 @@ namespace BirthdayExercise
         /// <param name="before2010">int used to track how many dates are before 01/01/2010</param>
         /// <param name="after2010">int used to track how many dates are after 01/01/2010</param>
         /// <returns></returns>
-        private static (int, int) IsBirthdayAfter2010(DateTime birthday, int before2010, int after2010)
+        private static void IsBirthdayAfter2010(DateTime birthday, ref int before2010, ref int after2010)
         {
             DateTime newYears2010 = new DateTime(2010, 01, 01);
-
             (before2010, after2010) = birthday.CompareTo(newYears2010) > 0 ?  (before2010, after2010+1) : (before2010+1, after2010);
-
-            return (before2010, after2010);
         }
 
         /// <summary>
