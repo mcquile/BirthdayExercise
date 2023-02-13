@@ -7,7 +7,7 @@ namespace BirthdayExercise
     /// <summary>
     /// Class to serve as an entry point and contain various utility methods.
     /// </summary>
-    class birthdayEvaluator
+    class Program
     {
 
         /// <summary>
@@ -16,28 +16,28 @@ namespace BirthdayExercise
         /// Finally writes the 2010 analysis to a file stored in the data directory.
         /// </summary>
         /// <param name="args">Command-Line arguments</param>
-        static void Main(string[] args)
+        static void Main(String[] args)
         {
-            var before2010 = 0;
-            var after2010 = 0;
+            int before2010 = 0;
+            int after2010 = 0;
 
-            var idArray = ReadFileAndReturnArray("id.txt"); 
+            String[] idArray = ReadFileAndReturnArray("id.txt"); 
 
-            foreach (var id in idArray)
+            foreach (String id in idArray)
             {
                 if (IsIdValid(id))
                 {
-                    var birthDate = GetDateFromId(id);
+                    DateTime birthDate = GetDateFromId(id);
 
                     if (IsBirthdayValid(birthDate))
                     {
-                        (before2010, after2010) = IsBirthdayAfter2010((DateTime)birthDate, before2010, after2010);
-                        Console.WriteLine(GetBirthdayFormat(birthDate.Value));
+                        (before2010, after2010) = IsBirthdayAfter2010(birthDate, before2010, after2010);
+                        Console.WriteLine(GetBirthdayFormat(birthDate));
                         continue;
                     }
                 }
 
-                var errorMessage = String.IsNullOrWhiteSpace(id) ? "EMPTY ENTRY" : id;
+                String errorMessage = String.IsNullOrWhiteSpace(id) ? "EMPTY ENTRY" : id;
                 Console.WriteLine($"Error: {errorMessage}");
             }
             WriteToFile(before2010, after2010);
@@ -56,7 +56,7 @@ namespace BirthdayExercise
             {
                 return File.ReadAllLines(filePath);
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 return Array.Empty<string>();
             }
@@ -68,7 +68,7 @@ namespace BirthdayExercise
         /// <returns>string</returns>
         protected static string GetDataPath()
         {
-            var environment = System.Environment.CurrentDirectory;
+            String environment = Environment.CurrentDirectory;
             return Directory.GetParent(environment).Parent.FullName.Replace(@"\bin", @"\Data\");
 
         }
@@ -88,16 +88,16 @@ namespace BirthdayExercise
         /// </summary>
         /// <param name="id">String of id number</param>
         /// <returns>DateTime or null</returns>
-        private static DateTime? GetDateFromId(string id)
+        private static DateTime GetDateFromId(string id)
         {
-            var birthdaySequence = id.Substring(0, 6);
+            String birthdaySequence = id.Substring(0, 6);
             try
             {
                 return DateTime.ParseExact(birthdaySequence, "yyMMdd", CultureInfo.InvariantCulture);
             }
             catch (FormatException)
             {
-                return null;
+                return DateTime.Now.AddYears(1);
             }
         }
 
@@ -106,9 +106,9 @@ namespace BirthdayExercise
         /// </summary>
         /// <param name="birthday">DateTime nullable of birthday</param>
         /// <returns>Boolean</returns>
-        private static Boolean IsBirthdayValid(DateTime? birthday)
+        private static Boolean IsBirthdayValid(DateTime birthday)
         {
-            return birthday != null && DateTime.Now.CompareTo(birthday) > 0;
+            return DateTime.Now.CompareTo(birthday) > 0;
         }
 
         /// <summary>
@@ -130,7 +130,7 @@ namespace BirthdayExercise
         /// <returns></returns>
         private static (int, int) IsBirthdayAfter2010(DateTime birthday, int before2010, int after2010)
         {
-            var newYears2010 = new DateTime(2010, 01, 01);
+            DateTime newYears2010 = new DateTime(2010, 01, 01);
 
             (before2010, after2010) = birthday.CompareTo(newYears2010) > 0 ?  (before2010, after2010+1) : (before2010+1, after2010);
 
@@ -144,7 +144,7 @@ namespace BirthdayExercise
         /// <param name="after2010">int used to track how many dates are after 01/01/2010</param>
         private static void WriteToFile(int before2010, int after2010)
         {
-            var fileName = GetDataPath() + "2010Analysis.txt";
+            String fileName = GetDataPath() + "2010Analysis.txt";
 
             string[] lines =
             {
