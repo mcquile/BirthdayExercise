@@ -21,7 +21,7 @@ namespace BirthdayExercise
             int before2010 = 0;
             int after2010 = 0;
 
-            String[] idArray = ReadFileAndReturnArray("id.txt"); 
+            String[] idArray = InputOutput.ReadFileAndReturnArray("id.txt"); 
 
             foreach (String id in idArray)
             {
@@ -40,7 +40,8 @@ namespace BirthdayExercise
                 String errorMessage = String.IsNullOrWhiteSpace(id) ? "EMPTY ENTRY" : id;
                 Console.WriteLine($"Error: {errorMessage}");
             }
-            WriteToFile(before2010, after2010);
+
+            InputOutput.WriteToFile(before2010, after2010);
         }
 
         /// <summary>
@@ -48,25 +49,16 @@ namespace BirthdayExercise
         /// </summary>
         /// <param name="fileName">File(path) name containing data to read</param>
         /// <returns>(string[]) String array of each line in file</returns>
-        protected static string[] ReadFileAndReturnArray(string fileName)
+        public static string[] ReadFileAndReturnArray(string fileName)
         {
-            string filePath = GetDataPath() + fileName;
-
-            try
-            {
-                return File.ReadAllLines(filePath);
-            }
-            catch (Exception)
-            {
-                return Array.Empty<string>();
-            }
+            return InputOutput.ReadFileAndReturnArray(fileName);
         }
 
         /// <summary>
         /// Returns the file path of data directory in project
         /// </summary>
         /// <returns>string</returns>
-        protected static string GetDataPath()
+        public static string GetDataPath()
         {
             String environment = Environment.CurrentDirectory;
             return Directory.GetParent(environment).Parent.FullName.Replace(@"\bin", @"\Data\");
@@ -132,24 +124,6 @@ namespace BirthdayExercise
         {
             DateTime newYears2010 = new DateTime(2010, 01, 01);
             (before2010, after2010) = birthday.CompareTo(newYears2010) > 0 ?  (before2010, after2010+1) : (before2010+1, after2010);
-        }
-
-        /// <summary>
-        /// Receives two integer arguments tracking birthdays before and after 01/01/2010 and writes the information to a file called "2010Analysis.txt" in the Data directory.
-        /// </summary>
-        /// <param name="before2010">int used to track how many dates are before 01/01/2010</param>
-        /// <param name="after2010">int used to track how many dates are after 01/01/2010</param>
-        private static void WriteToFile(int before2010, int after2010)
-        {
-            String fileName = GetDataPath() + "2010Analysis.txt";
-
-            string[] lines =
-            {
-                $"Number of people born before 01/01/2010: {before2010}",
-                $"Number of people born after 01/01/2010: {after2010}"
-            };
-
-             File.WriteAllLines(fileName, lines);
         }
     }
 }
