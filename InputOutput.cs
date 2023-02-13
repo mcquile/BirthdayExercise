@@ -9,7 +9,7 @@ class InputOutput
     /// <returns>(string[]) String array of each line in file</returns>
     public static string[] ReadFileAndReturnArray(string fileName)
     {
-        string filePath = Program.GetDataPath() + fileName;
+        string filePath = Constants.GetDataPath() + fileName;
 
         try
         {
@@ -28,7 +28,7 @@ class InputOutput
     /// <param name="after2010">int used to track how many dates are after 01/01/2010</param>
     public static void WriteToFile(int before2010, int after2010)
     {
-        String fileName = Program.GetDataPath() + "2010Analysis.txt";
+        String fileName = Constants.GetDataPath() + "2010Analysis.txt";
 
         string[] lines =
         {
