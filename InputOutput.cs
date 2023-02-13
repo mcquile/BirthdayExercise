@@ -28,7 +28,7 @@ class InputOutput
     /// <param name="after2010">int used to track how many dates are after 01/01/2010</param>
     public static void WriteToFile(int before2010, int after2010)
     {
-        String fileName = GetDataPath() + "2010Analysis.txt";
+        String fileName = GetDataPath() + Constants._OutputFileName;
 
         string[] lines =
         {

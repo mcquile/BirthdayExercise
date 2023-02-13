@@ -11,7 +11,7 @@ class DateTimeUtility
     /// <returns>DateTime or null</returns>
     public static DateTime GetDateFromId(string id)
     {
-        String birthdaySequence = id.Substring(0, 6);
+        String birthdaySequence = id.Substring(Constants._BirthdayStartIndex, Constants._BirthdayLength);
         try
         {
             return DateTime.ParseExact(birthdaySequence, "yyMMdd", CultureInfo.InvariantCulture);

@@ -21,12 +21,12 @@ namespace BirthdayExercise
             int before2010 = 0;
             int after2010 = 0;
 
-            String[] idArray = InputOutput.ReadFileAndReturnArray("id.txt"); 
+            String[] idArray = InputOutput.ReadFileAndReturnArray(Constants._InputFileName); 
 
             foreach (String id in idArray)
             {
                 String idTrimmed = id.Trim();
-                if (IdentityNumberUtility.IsIdStructureCorrect(idTrimmed))
+                if (IdentityNumberUtility.IsIdValid(idTrimmed))
                 {
                     DateTime birthDate = DateTimeUtility.GetDateFromId(idTrimmed);
 
