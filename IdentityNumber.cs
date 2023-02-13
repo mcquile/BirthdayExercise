@@ -3,35 +3,45 @@ using System.Text.RegularExpressions;
 
 namespace BirthdayExercise;
 
-class IdentityNumberUtility
+class IdentityNumber
 {
-    internal static Boolean IsIdValid(string id)
+    internal string id;
+    public IdentityNumber(String id)
     {
-        return IsIdStructureCorrect(id) && IsControlDigitValid(id);
+        this.id = id;
     }
+
+    /// <summary>
+    /// Checks if ID number is valid if it has 13 digits and the last digit follows Luhn's Algorithm.
+    /// </summary>
+    /// <returns>Boolean</returns>
+    public Boolean IsIdValid()
+    {
+        return IsIdStructureCorrect() && IsControlDigitValid();
+    }
+
+    public String ID { get { return id; } }
 
     /// <summary>
     /// Checks if a id(string) conforms to having a length of 13 characters with all being digits ranging from 0 to 9.
     /// </summary>
-    /// <param name="id">String of id number to validate</param>
     /// <returns>Boolean</returns>
-    internal static Boolean IsIdStructureCorrect(String id)
+    private Boolean IsIdStructureCorrect()
     {
         return Regex.IsMatch(id, @"^\d{10}(0|1)\d{2}$");
     }
 
     /// <summary>
-    /// Checks if last digit of ID number is correct according to Luhn's algorithm
+    /// Checks if last digit of id number is correct according to Luhn's algorithm
     /// </summary>
-    /// <param name="id">String of id number to validate</param>
     /// <returns>Boolean</returns>
-    private static Boolean IsControlDigitValid(String id)
+    private Boolean IsControlDigitValid()
     {
-        int evenTotal = GetEvenIndexTotal(id);
-        int oddTotal = GetOddIndexTotal(id);
+        int evenTotal = GetEvenIndexTotal();
+        int oddTotal = GetOddIndexTotal();
         if (evenTotal>0 && oddTotal>0)
         {
-            String expectedControlDigit = GetExpectedControlDigit(evenTotal, oddTotal);
+            String expectedControlDigit = GetExpectedControlDigit();
             String actualControlDigit = id[12].ToString();
             return actualControlDigit.Equals(expectedControlDigit);
         }
@@ -39,11 +49,10 @@ class IdentityNumberUtility
     }
 
     /// <summary>
-    /// Adds all the digits at even indices in ID number (0,2,4...12) and returns the sum
+    /// Adds all the digits at even indices in id number (0,2,4...12) and returns the sum
     /// </summary>
-    /// <param name="id">String of id number to validate</param>
     /// <returns>int</returns>
-    private static int GetEvenIndexTotal(String id)
+    private int GetEvenIndexTotal()
     {
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < id.Length-1; i+=2)
@@ -56,11 +65,10 @@ class IdentityNumberUtility
 
 
     /// <summary>
-    /// Creates a new number from all the digits at odd indices in ID number (1,3,5...11), multiplies the resultant number by two then returns the sum of the digits.
+    /// Creates a new number from all the digits at odd indices in id number (1,3,5...11), multiplies the resultant number by two then returns the sum of the digits.
     /// </summary>
-    /// <param name="id">String of id number to validate</param>
     /// <returns>int</returns>
-    private static int GetOddIndexTotal(String id)
+    private int GetOddIndexTotal()
     {
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 1; i < id.Length-1; i+=2)
@@ -81,9 +89,8 @@ class IdentityNumberUtility
     /// <summary>
     /// Adds the digits of a provided string and returns the total. Will return -1 if provided string is invalid.
     /// </summary>
-    /// <param name="strNumber">String containing only digits</param>
     /// <returns>int</returns>
-    private static int AddDigitsInString(String strNumber)
+    private int AddDigitsInString(String strNumber)
     {
         int total = 0;
         foreach (char character in strNumber)
@@ -105,12 +112,10 @@ class IdentityNumberUtility
     /// <summary>
     /// Gets the sum of two integers provided and returns 10 - {last digit of the sum}
     /// </summary>
-    /// <param name="evenTotal">int</param>
-    /// <param name="oddTotal">int</param>
     /// <returns>String</returns>
-    private static String GetExpectedControlDigit(int evenTotal, int oddTotal)
+    private String GetExpectedControlDigit()
     {
-        int lastDigitOfTotal = (evenTotal + oddTotal) % 10;
+        int lastDigitOfTotal = (GetOddIndexTotal() + GetEvenIndexTotal()) % 10;
         return (10 - lastDigitOfTotal).ToString();
     }
 }

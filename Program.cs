@@ -12,7 +12,7 @@ namespace BirthdayExercise
 
         /// <summary>
         /// Entry point of application. Contains the main loop and flow of program.
-        /// Loops through ID numbers obtained by reading file, prints birthday derived from ID number and tracks birthdays occuring before and after 01/01/2010.
+        /// Loops through id numbers obtained by reading file, prints birthday derived from id number and tracks birthdays occuring before and after 01/01/2010.
         /// Finally writes the 2010 analysis to a file stored in the data directory.
         /// </summary>
         /// <param name="args">Command-Line arguments</param>
@@ -26,10 +26,11 @@ namespace BirthdayExercise
             foreach (String id in idArray)
             {
                 String idTrimmed = id.Trim();
+                IdentityNumber idNumber = new IdentityNumber(idTrimmed);
 
-                if (IdentityNumberUtility.IsIdValid(idTrimmed))
+                if (idNumber.IsIdValid())
                 {
-                    DateTime birthDate = DateTimeUtility.GetDateFromId(idTrimmed);
+                    DateTime birthDate = DateTimeUtility.GetDateFromId(idNumber.ID);
 
                     if (BirthdayUtility.IsBirthdayInThePast(birthDate))
                     {
