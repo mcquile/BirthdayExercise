@@ -4,15 +4,9 @@ class Constants
 {
     public const String _InputFileName = "id.txt";
     public const String _OutputFileName = "2010Analysis.txt";
-
-    /// <summary>
-    /// Returns the file path of data directory in project
-    /// </summary>
-    /// <returns>string</returns>
-    public static string GetDataPath()
-    {
-        String environment = Environment.CurrentDirectory;
-        return Directory.GetParent(environment).Parent.FullName.Replace(@"\bin", @"\Data\");
-
-    }
+    public const String _DesirecDateFormat = "dd/MM/yyyy";
+    public const int _BirthdayStartIndex = 0;
+    public const int _BirthdayLength = 6;
+    public const int _GenderStartIndex = 6;
+    public const int _GenderLength = 4;
 }

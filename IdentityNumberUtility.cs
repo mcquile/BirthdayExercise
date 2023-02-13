@@ -9,8 +9,8 @@ class IdentityNumberUtility
     /// </summary>
     /// <param name="id">String of id number to validate</param>
     /// <returns>Boolean</returns>
-    public static Boolean IsIdThirteenDigits(string id)
+    public static Boolean IsIdStructureCorrect(string id)
     {
-        return Regex.IsMatch(id, "^\\d{13}$");
+        return Regex.IsMatch(id, @"^\d{10}(0|1)\d{2}$");
     }
 }

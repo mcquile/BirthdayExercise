@@ -25,33 +25,24 @@ namespace BirthdayExercise
 
             foreach (String id in idArray)
             {
-                if (IdentityNumberUtility.IsIdThirteenDigits(id))
+                String idTrimmed = id.Trim();
+                if (IdentityNumberUtility.IsIdStructureCorrect(idTrimmed))
                 {
-                    DateTime birthDate = DateTimeUtility.GetDateFromId(id);
+                    DateTime birthDate = DateTimeUtility.GetDateFromId(idTrimmed);
 
                     if (BirthdayUtility.IsBirthdayInThePast(birthDate))
                     {
                         BirthdayUtility.IsBirthdayAfter2010(birthDate, ref before2010, ref after2010);
-                        Console.WriteLine(GetBirthdayFormat(birthDate));
+                        Console.WriteLine(birthDate.ToString(Constants._DesirecDateFormat));
                         continue;
                     }
                 }
 
-                String errorMessage = String.IsNullOrWhiteSpace(id) ? "EMPTY ENTRY" : id;
+                String errorMessage = String.IsNullOrWhiteSpace(idTrimmed) ? "EMPTY ENTRY" : idTrimmed;
                 Console.WriteLine($"Error: {errorMessage}");
             }
 
             InputOutput.WriteToFile(before2010, after2010);
-        }
-
-        /// <summary>
-        /// Converts the DateTime argument to the desired string format and returns the resultant string.
-        /// </summary>
-        /// <param name="birthday">DateTime object</param>
-        /// <returns>String</returns>
-        private static String GetBirthdayFormat(DateTime birthday)
-        {
-            return birthday.ToString("dd/MM/yyyy");
         }
     }
 }
