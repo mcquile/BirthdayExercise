@@ -20,6 +20,11 @@ class IdentityNumberUtility
         return Regex.IsMatch(id, @"^\d{10}(0|1)\d{2}$");
     }
 
+    /// <summary>
+    /// Checks if last digit of ID number is correct according to Luhn's algorithm
+    /// </summary>
+    /// <param name="id">String of id number to validate</param>
+    /// <returns>Boolean</returns>
     private static Boolean IsControlDigitValid(String id)
     {
         int evenTotal = GetEvenIndexTotal(id);
@@ -33,6 +38,11 @@ class IdentityNumberUtility
         return false;
     }
 
+    /// <summary>
+    /// Adds all the digits at even indices in ID number (0,2,4...12) and returns the sum
+    /// </summary>
+    /// <param name="id">String of id number to validate</param>
+    /// <returns>int</returns>
     private static int GetEvenIndexTotal(String id)
     {
         StringBuilder stringBuilder = new StringBuilder();
@@ -44,6 +54,12 @@ class IdentityNumberUtility
         return AddDigitsInString(stringBuilder.ToString());
     }
 
+
+    /// <summary>
+    /// Creates a new number from all the digits at odd indices in ID number (1,3,5...11), multiplies the resultant number by two then returns the sum of the digits.
+    /// </summary>
+    /// <param name="id">String of id number to validate</param>
+    /// <returns>int</returns>
     private static int GetOddIndexTotal(String id)
     {
         StringBuilder stringBuilder = new StringBuilder();
@@ -62,6 +78,11 @@ class IdentityNumberUtility
         return -1;
     }
 
+    /// <summary>
+    /// Adds the digits of a provided string and returns the total. Will return -1 if provided string is invalid.
+    /// </summary>
+    /// <param name="strNumber">String containing only digits</param>
+    /// <returns>int</returns>
     private static int AddDigitsInString(String strNumber)
     {
         int total = 0;
@@ -81,6 +102,12 @@ class IdentityNumberUtility
         return total;
     }
 
+    /// <summary>
+    /// Gets the sum of two integers provided and returns 10 - {last digit of the sum}
+    /// </summary>
+    /// <param name="evenTotal">int</param>
+    /// <param name="oddTotal">int</param>
+    /// <returns>String</returns>
     private static String GetExpectedControlDigit(int evenTotal, int oddTotal)
     {
         int lastDigitOfTotal = (evenTotal + oddTotal) % 10;
