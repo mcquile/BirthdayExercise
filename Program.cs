@@ -45,16 +45,6 @@ namespace BirthdayExercise
         }
 
         /// <summary>
-        /// Reads file and returns a string array with each element being a line from the file.
-        /// </summary>
-        /// <param name="fileName">File(path) name containing data to read</param>
-        /// <returns>(string[]) String array of each line in file</returns>
-        public static string[] ReadFileAndReturnArray(string fileName)
-        {
-            return InputOutput.ReadFileAndReturnArray(fileName);
-        }
-
-        /// <summary>
         /// Returns the file path of data directory in project
         /// </summary>
         /// <returns>string</returns>
