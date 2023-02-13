@@ -7,7 +7,7 @@ class InputOutput
     /// </summary>
     /// <param name="fileName">File(path) name containing data to read</param>
     /// <returns>(string[]) String array of each line in file</returns>
-    public static string[] ReadFileAndReturnArray(string fileName)
+    internal static string[] ReadFileAndReturnArray(string fileName)
     {
         string filePath = GetDataPath() + fileName;
 
@@ -26,7 +26,7 @@ class InputOutput
     /// </summary>
     /// <param name="before2010">int used to track how many dates are before 01/01/2010</param>
     /// <param name="after2010">int used to track how many dates are after 01/01/2010</param>
-    public static void WriteToFile(int before2010, int after2010)
+    internal static void WriteToFile(int before2010, int after2010)
     {
         String fileName = GetDataPath() + Constants._OutputFileName;
 
@@ -43,7 +43,7 @@ class InputOutput
     /// Returns the file path of data directory in project
     /// </summary>
     /// <returns>string</returns>
-    public static string GetDataPath()
+    private static string GetDataPath()
     {
         String environment = Environment.CurrentDirectory;
         return Directory.GetParent(environment).Parent.FullName.Replace(@"\bin", @"\Data\");

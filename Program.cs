@@ -26,6 +26,7 @@ namespace BirthdayExercise
             foreach (String id in idArray)
             {
                 String idTrimmed = id.Trim();
+
                 if (IdentityNumberUtility.IsIdValid(idTrimmed))
                 {
                     DateTime birthDate = DateTimeUtility.GetDateFromId(idTrimmed);

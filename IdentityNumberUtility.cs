@@ -5,7 +5,7 @@ namespace BirthdayExercise;
 
 class IdentityNumberUtility
 {
-    public static Boolean IsIdValid(string id)
+    internal static Boolean IsIdValid(string id)
     {
         return IsIdStructureCorrect(id) && IsControlDigitValid(id);
     }
@@ -15,7 +15,7 @@ class IdentityNumberUtility
     /// </summary>
     /// <param name="id">String of id number to validate</param>
     /// <returns>Boolean</returns>
-    public static Boolean IsIdStructureCorrect(String id)
+    internal static Boolean IsIdStructureCorrect(String id)
     {
         return Regex.IsMatch(id, @"^\d{10}(0|1)\d{2}$");
     }

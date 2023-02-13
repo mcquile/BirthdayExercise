@@ -9,7 +9,7 @@ class DateTimeUtility
     /// </summary>
     /// <param name="id">String of id number</param>
     /// <returns>DateTime or null</returns>
-    public static DateTime GetDateFromId(string id)
+    internal static DateTime GetDateFromId(string id)
     {
         String birthdaySequence = id.Substring(Constants._BirthdayStartIndex, Constants._BirthdayLength);
         try
